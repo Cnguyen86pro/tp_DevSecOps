@@ -11,7 +11,6 @@ app = FastAPI()
 dotenv.load_dotenv()
 API_TOKEN = os.getenv('API_TOKEN')
 
-
 @app.middleware('http')
 async def check_token(request: Request, call_next):
   auth = request.headers.get('Authorization')
