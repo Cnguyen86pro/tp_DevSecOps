@@ -5,6 +5,7 @@ import requests
 import logging
 from hide import hide
 import datetime
+import logging
 import time
 
 #Chargements des variables d'environnement
@@ -19,17 +20,22 @@ log_filename = f'log_{now}.log'
 logging.basicConfig(
     level=logging.INFO,
     format='[%(asctime)s] %(levelname)s - %(message)s',
-    filename=log_filename
+    filename=log_filename,
+    handlers=[
+        logging.FileHandler('logs/script.log'),]
 )
 
 url = API_URL+API_TOKEN
 headers = {'Authorization': f'Bearer {API_TOKEN}'}
 
-
 try:
+    if not API_TOKEN:
+        raise ValueError('Token vide')
     r = requests.get(url, headers=headers)
     logging.info(f'HTTP response from {hide(r.url, API_TOKEN)} with Status: {r.status_code}')
+
 except requests.exceptions.HTTPError as e:
     logging.error(f'HTTP error: {hide(str(e), API_TOKEN)}')
+
 except requests.exceptions.RequestException as e:
     logging.error(f'Network error on {hide(url, API_TOKEN)}')
