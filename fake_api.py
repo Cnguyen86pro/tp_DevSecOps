@@ -9,12 +9,12 @@ import os
 app = FastAPI()
 
 dotenv.load_dotenv()
-API_TOKEN = os.getenv('API_TOKEN')
+api_token = os.getenv('API_TOKEN')
 
 @app.middleware('http')
 async def check_token(request: Request, call_next):
   auth = request.headers.get('Authorization')
-  if not auth or auth != f'Bearer {API_TOKEN}':
+  if not auth or auth != f'Bearer {api_token}':
     return JSONResponse(status_code=401, content = '{"detail": "Unauthorized: Invalid or missing token"}')  
     #raise HTTPException(status_code=401, detail='Unauthorized: Invalid or missing token')
   return await call_next(request)
