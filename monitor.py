@@ -26,7 +26,7 @@ logging.basicConfig(
     ]
 )
 
-url = f'{API_URL}/status?{API_TOKEN}'
+url = f'{API_URL}status?{API_TOKEN}'
 headers = {'Authorization': f'Bearer {API_TOKEN}'}
 
 try:
