@@ -3,10 +3,14 @@ from fastapi.responses import JSONResponse
 from typing import Optional
 import random
 import time
+import dotenv
+import os
 
 app = FastAPI()
 
-API_TOKEN = 'CeciEstUnTokenDeTestVousPouvezLeCacherDansDotEnv'
+dotenv.load_dotenv()
+API_TOKEN = os.getenv('API_TOKEN')
+
 
 @app.middleware('http')
 async def check_token(request: Request, call_next):
